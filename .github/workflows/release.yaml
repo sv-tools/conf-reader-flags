@@ -8,7 +8,7 @@ on:
       - "v[0-9]+.[0-9]+.[0-9]+"
 
 env:
-  GO: 1.16
+  GO: 1.17
 
 jobs:
   bump-version:
@@ -44,62 +44,6 @@ jobs:
         with:
           token: "${{ secrets.GITHUB_TOKEN }}"
           title: Next
-
-  release-cli:
-    if: github.event_name == 'push'
-    runs-on: ubuntu-latest
-    env:
-      DOCKER_CLI_EXPERIMENTAL: "enabled"
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Install Go
-        uses: actions/setup-go@v2
-        with:
-          go-version: ${{ env.GO }}
-
-      - name: Prepare gpg
-        run: |
-          gpgconf --kill gpg-agent
-          gpg --quiet --batch --yes --decrypt --passphrase="${{ secrets.GPG_PASSPHRASE }}" --output .github/sv-tools-bot.asc .github/sv-tools-bot.asc.gpg
-          gpg --batch --yes --import .github/sv-tools-bot.asc
-          rm .github/sv-tools-bot.asc
-
-      - name: Allow arm Docker builds # https://github.com/linuxkit/linuxkit/tree/master/pkg/binfmt
-        run: sudo docker run --privileged linuxkit/binfmt:v0.8
-
-      - name: Docker Login
-        uses: docker/login-action@v1
-        with:
-          registry: ghcr.io
-          username: sv-tools-bot
-          password: ${{ secrets.BOT_TOKEN }}
-
-      - name: Docker Login
-        uses: docker/login-action@v1
-        with:
-          username: svtools
-          password: ${{ secrets.DOCKER_HUB_TOKEN }}
-
-      - name: Snapcraft Login
-        env:
-          SNAPCRAFT_LOGIN: ${{ secrets.SNAPCRAFT_LOGIN }}
-        run: |
-          sudo apt-get -yq --no-install-suggests --no-install-recommends install snapcraft
-          snapcraft login --with <(echo "$SNAPCRAFT_LOGIN")
-
-      - name: Run GoReleaser
-        uses: goreleaser/goreleaser-action@v2
-        with:
-          version: latest
-          args: release --rm-dist --config .github/goreleaser-cli.yml
-        env:
-          GITHUB_TOKEN: ${{ secrets.BOT_TOKEN }}
-
-      - name: Clear
-        if: always()
-        run: rm -f ${HOME}/.docker/config.json
 
   release-lib:
     if: github.event_name == 'push'
