@@ -1,5 +1,4 @@
 tap "golangci/tap"
-tap "vektra/tap"
 tap "kyoh86/tap"
 tap "sonatype-nexus-community/nancy-tap"
 tap "sv-tools/apps"
@@ -13,7 +12,5 @@ brew "kyoh86/tap/richgo"
 brew "sonatype-nexus-community/nancy-tap/nancy"
 # bumptag is a tool to increment a version and to create a git tag with an annotation.
 brew "sv-tools/apps/bumptag"
-# A mock code autogenerator for Go
-brew "vektra/tap/mockery"
 # Deliver Go binaries as fast and easily as possible
 brew "goreleaser/tap/goreleaser"
