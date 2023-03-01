@@ -29,8 +29,9 @@ func (r *flagReader) Read(ctx context.Context) (interface{}, error) {
 }
 
 // New creates the Env reader
-//   `mapFlagKey` is a map of the names of the flag and the configuration keys
-//   `prefix` is a default prefix that will be added to all configuration keys
+//
+//	`mapFlagKey` is a map of the names of the flag and the configuration keys
+//	`prefix` is a default prefix that will be added to all configuration keys
 func New(mapFlagKey map[string]string, prefix string, flagSet *pflag.FlagSet) conf.Reader {
 	if flagSet == nil {
 		flagSet = pflag.CommandLine
