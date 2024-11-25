@@ -1,9 +1,0 @@
-project_name: conf-reader-flags
-
-release:
-  github:
-    owner: sv-tools
-    name: conf-reader-flags
-
-builds:
-  - skip: true
