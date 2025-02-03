@@ -3,7 +3,7 @@ module github.com/sv-tools/conf-reader-flags
 go 1.23.0
 
 require (
-	github.com/spf13/pflag v1.0.5
+	github.com/spf13/pflag v1.0.6
 	github.com/stretchr/testify v1.10.0
 	github.com/sv-tools/conf v1.3.0
 )
