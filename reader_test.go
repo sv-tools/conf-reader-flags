@@ -19,7 +19,7 @@ func TestNew(t *testing.T) {
 	require.NoError(t, fs.Parse([]string{"--foo=42"}))
 
 	c := conf.New().WithReaders(confflags.New(map[string]string{"foo": "foo", "bar": "bar"}, "", fs))
-	require.NoError(t, c.Load(context.Background()))
+	require.NoError(t, c.Load(t.Context()))
 
 	require.Equal(t, 42, c.GetInt("foo"))
 	require.Equal(t, 2, c.GetInt("bar"))

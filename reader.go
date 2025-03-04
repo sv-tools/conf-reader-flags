@@ -17,7 +17,7 @@ func (r *flagReader) Prefix() string {
 	return r.prefix
 }
 
-func (r *flagReader) Read(ctx context.Context) (interface{}, error) {
+func (r *flagReader) Read(ctx context.Context) (any, error) {
 	res := map[string]string{}
 	for name, key := range r.mapFlagKey {
 		if fl := r.flagSet.Lookup(name); fl != nil {
