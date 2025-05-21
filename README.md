@@ -7,6 +7,10 @@
 
 The [conf](https://github.com/sv-tools/conf) reader for Command Line Flags.
 
+```shell
+go get github.com/sv-tools/conf-reader-flags
+```
+
 ## License
 
 MIT licensed. See the bundled [LICENSE](LICENSE) file for more details.
